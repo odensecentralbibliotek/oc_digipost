@@ -7,7 +7,9 @@
 function oc_digipost_wysiwyg_plugin($editor, $version) {
 
   drupal_add_js(array('oc_digipost' => array('oc_digipost_url' => variable_get('oc_digipost_url','http://borger.dk/'),
-      'oc_digipost_mailboxids' => variable_get('oc_digipost_mailboxid',''))), 'setting');
+      'oc_digipost_mailboxids' => variable_get('oc_digipost_mailboxid',''),
+      'oc_digipost_btntext' => variable_get('oc_digipost_btntext','')
+      )), 'setting');
   
   switch ($editor) {
    case 'ckeditor':
@@ -28,6 +30,7 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
   */
  function oc_digipost_admin() {
   $form = array();
+  //The url to the digital post provider ( always borger.dk/post? )
   $form['oc_digipost_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Digital URL'),
@@ -36,12 +39,26 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
     '#description' => t("DigitalPos Mailbox id."),
     '#required' => TRUE,
   );
+  /*
+   * The mailbox id of the organisation/user that  should recieve the email.
+   */
   $form['oc_digipost_mailboxid'] = array(
     '#type' => 'textfield',
     '#title' => t('Mailbox id'),
     '#default_value' => variable_get('oc_digipost_mailboxid',''),
     '#size' => 50,
     '#description' => t("DigitalPos Mailbox id."),
+    '#required' => TRUE,
+  );
+   /*
+   * The text to be used in the markup generation for labeling.
+   */
+  $form['oc_digipost_btntext'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Link text'),
+    '#default_value' => variable_get('oc_digipost_btntext','Skriv til os'),
+    '#size' => 50,
+    '#description' => t("Link text"),
     '#required' => TRUE,
   );
   

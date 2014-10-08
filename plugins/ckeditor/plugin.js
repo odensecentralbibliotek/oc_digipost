@@ -4,18 +4,17 @@ CKEDITOR.plugins.add( 'oc_digitpost_plugin', {
   {
    editor.addCommand( 'oc_digipost', {
     exec : function( editor ) {
-     //here is where we tell CKEditor what to do.
+     //Read backend configured settings for the digitalpost box.
      var Mailboxid = Drupal.settings.oc_digipost.oc_digipost_mailboxids;
      var DigiPostUrl = Drupal.settings.oc_digipost.oc_digipost_url;
-     var BtnText = "Skriv til os";
-     
+     var BtnText = Drupal.settings.oc_digipost.oc_digipost_btntext;
      var DeepLink = DigiPostUrl + "function=index&mailboxid=" + Mailboxid;
           
-     
+     //Generate the markup/html
      var writer = new CKEDITOR.htmlWriter();
         writer.openTag( 'a' );
         writer.attribute( 'class', 'btn-info' );
-        writer.attribute( 'href', DigiPostUrl );
+        writer.attribute( 'href', DeepLink );
         writer.openTagClose( 'a' );
         writer.text( BtnText );
         writer.closeTag( 'a' );
