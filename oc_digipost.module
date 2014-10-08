@@ -1,9 +1,8 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * Add the digital post btn to the wysiwig plugin.
+ * At the moment only CKeditor is supportet.
  */
 function oc_digipost_wysiwyg_plugin($editor, $version) {
 
@@ -24,6 +23,9 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
     break;
   }
  }
+ /*
+  * Backend config.
+  */
  function oc_digipost_admin() {
   $form = array();
   $form['oc_digipost_url'] = array(
@@ -45,6 +47,9 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
   
   return system_settings_form($form);
 }
+/*
+ * Setup menu.
+ */
 function oc_digipost_menu() {
   $items = array();
   $items['admin/settings/oc_digitalpost'] = array(
@@ -66,6 +71,9 @@ function oc_digipost_permission() {
     )
   );
 }
+/*
+ * Set default permissions to admin only.
+ */
 function oc_digipost_enable() {
   $admin_role = user_role_load_by_name('administrator');
   // Additional permissions.
