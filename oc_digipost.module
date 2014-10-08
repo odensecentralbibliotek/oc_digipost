@@ -1,0 +1,77 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+function oc_digipost_wysiwyg_plugin($editor, $version) {
+
+  drupal_add_js(array('oc_digipost' => array('oc_digipost_url' => variable_get('oc_digipost_url','http://borger.dk/'),
+      'oc_digipost_mailboxids' => variable_get('oc_digipost_mailboxid',''))), 'setting');
+  
+  switch ($editor) {
+   case 'ckeditor':
+    return array(
+     'oc_digitpost_plugin' => array(
+      'path' => drupal_get_path('module', 'oc_digipost') . '/plugins/ckeditor',
+      'buttons' => array(
+       'oc_digitpost_button' => t('Digital Post'),
+      ),
+      'load' => TRUE,
+     ),
+    );
+    break;
+  }
+ }
+ function oc_digipost_admin() {
+  $form = array();
+  $form['oc_digipost_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Digital URL'),
+    '#default_value' =>  variable_get('oc_digipost_url','https://borger.dk/post?') ,
+    '#size' => 50,
+    '#description' => t("DigitalPos Mailbox id."),
+    '#required' => TRUE,
+  );
+  $form['oc_digipost_mailboxid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mailbox id'),
+    '#default_value' => variable_get('oc_digipost_mailboxid',''),
+    '#size' => 50,
+    '#description' => t("DigitalPos Mailbox id."),
+    '#required' => TRUE,
+  );
+  
+  return system_settings_form($form);
+}
+function oc_digipost_menu() {
+  $items = array();
+  $items['admin/settings/oc_digitalpost'] = array(
+    'description' => 'Configuration af oc digitalpost modul',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('oc_digipost_admin'),
+    'access arguments' => array('administer oc_digipost'),
+   );
+  return $items;
+}
+/**
+ * Implements hook_permission().
+ */
+function oc_digipost_permission() {
+  return array(
+    'administer oc_digipost' => array(
+      'title' => t('Administrer digitalpost'),
+      'description' => t('Giver adgang til configuere digitalpost'),
+    )
+  );
+}
+function oc_digipost_enable() {
+  $admin_role = user_role_load_by_name('administrator');
+  // Additional permissions.
+  user_role_grant_permissions($admin_role->rid, array(
+    'administer oc_digipost' => TRUE
+  ));
+}
+
+

@@ -1,0 +1,7 @@
+name = OC_digitalpost
+description = Integration af digitalpost i drupal.
+core = 7.x
+package = Other
+configure = admin/settings/oc_digitalpost
+dependencies[] = wysiwyg
+
