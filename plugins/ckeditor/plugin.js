@@ -7,8 +7,23 @@ CKEDITOR.plugins.add( 'oc_digitpost_plugin', {
      //Read backend configured settings for the digitalpost box.
      var Mailboxid = Drupal.settings.oc_digipost.oc_digipost_mailboxids;
      var DigiPostUrl = Drupal.settings.oc_digipost.oc_digipost_url;
+     var SubjectId = Drupal.settings.oc_digipost.oc_digipost_url;
+     
      var BtnText = Drupal.settings.oc_digipost.oc_digipost_btntext;
-     var DeepLink = DigiPostUrl + "function=index&mailboxid=" + Mailboxid;
+     var DeepLink = DigiPostUrl + "function=inbox";
+     
+     if(Mailboxid != undefined && Mailboxid != "")
+     {
+         DeepLink += "mailboxid=" + Mailboxid;
+     }
+     else
+     {
+         BtnText = "Ingen Mailbox configuration fundet!";
+     }
+     if(SubjectId != undefined && SubjectId != "")
+     {
+         DeepLink += "subjectid=" + SubjectId;
+     }
           
      //Generate the markup/html
      var writer = new CKEDITOR.htmlWriter();

@@ -8,8 +8,8 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
 
   drupal_add_js(array('oc_digipost' => array('oc_digipost_url' => variable_get('oc_digipost_url','http://borger.dk/'),
       'oc_digipost_mailboxids' => variable_get('oc_digipost_mailboxid',''),
-      'oc_digipost_btntext' => variable_get('oc_digipost_btntext','')
-      )), 'setting');
+      'oc_digipost_btntext' => variable_get('oc_digipost_btntext',''),
+      'oc_digipost_subjectid' => variable_get('oc_digipost_subjectid',''))), 'setting');
   
   switch ($editor) {
    case 'ckeditor':
@@ -48,6 +48,17 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
     '#default_value' => variable_get('oc_digipost_mailboxid',''),
     '#size' => 50,
     '#description' => t("DigitalPos Mailbox id."),
+    '#required' => TRUE,
+  );
+   /*
+   * The subject id for the target mailbox. refer to documentation for example..
+   */
+  $form['oc_digipost_subjectid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject id'),
+    '#default_value' => variable_get('oc_digipost_subjectid',''),
+    '#size' => 50,
+    '#description' => t("DigitalPos subject id."),
     '#required' => TRUE,
   );
    /*
