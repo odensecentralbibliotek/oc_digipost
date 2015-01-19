@@ -30,6 +30,7 @@ CKEDITOR.plugins.add( 'oc_digitpost_plugin', {
         writer.openTag( 'a' );
         writer.attribute( 'class', 'btn-info' );
         writer.attribute( 'href', DeepLink );
+        writer.attribute( 'target', '_blank' );
         writer.openTagClose( 'a' );
         writer.text( BtnText );
         writer.closeTag( 'a' );
