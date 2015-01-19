@@ -51,7 +51,8 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
     '#required' => TRUE,
   );
    /*
-   * The subject id for the target mailbox. refer to documentation for example..
+   * The subject id for the target mailbox. is not required. and should only be set
+    * in certain cases.
    */
   $form['oc_digipost_subjectid'] = array(
     '#type' => 'textfield',
@@ -59,7 +60,7 @@ function oc_digipost_wysiwyg_plugin($editor, $version) {
     '#default_value' => variable_get('oc_digipost_subjectid',''),
     '#size' => 50,
     '#description' => t("DigitalPos subject id."),
-    '#required' => TRUE,
+    '#required' => FALSE,
   );
    /*
    * The text to be used in the markup generation for labeling.
